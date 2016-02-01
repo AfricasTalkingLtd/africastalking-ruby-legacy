@@ -68,6 +68,8 @@ class QueuedCalls
 		@phoneNumber = number_
 		@numCalls    = numCalls_
 		@queueName   = queueName_
+	end
+end
 
 class AfricasTalkingGateway
 
@@ -134,7 +136,7 @@ class AfricasTalkingGateway
 		response = executePost(url)
 		if @response_code == HTTP_OK
 			messages = JSON.parse(response, :quirky_mode => true)["SMSMessageData"]["Messages"].collect { |msg|
-				SMSMessage.new msg["id"], msg["text"], msg["from"] , msg["to"], msg["linkId"], msg["date"]
+				SMSMessages.new msg["id"], msg["text"], msg["from"], msg["to"], msg["linkId"], msg["date"]
 			}
 			return messages
 		else

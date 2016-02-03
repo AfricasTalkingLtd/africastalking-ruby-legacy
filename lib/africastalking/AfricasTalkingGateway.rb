@@ -1,9 +1,9 @@
+module AfricasTalkingGateway
+
 require 'rubygems'
 require 'net/http'
 require 'uri'
 require 'json'
-
-module AfricasTalkingGateway
 
 class AfricasTalkingGatewayException < Exception
 end

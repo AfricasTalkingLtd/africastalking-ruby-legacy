@@ -96,8 +96,8 @@ end
 require './AfricasTalkingGateway'
 
 # Specify your login credentials
-username = "MyAfricasTalking_Username";
-apikey   = "MyAfricasTalking_APIKey";
+username = "MyAfricasTalkingUsername";
+apikey   = "MyAfricasTalkingAPIKey";
 
 # Specify your Africa's Talking phone number in international format
 callFrom = "+254711082XYZ";
@@ -160,8 +160,8 @@ end
 require 'AfricasTalkingGateway'
 
 # Specify your login credentials
-username = "MyAfricasTalking_Username";
-apikey   = "MyAfricasTalking_APIKey";
+username = "MyAfricasTalkingUsername";
+apikey   = "MyAfricasTalkingAPIKey";
 
 
 # Create a new instance of our awesome gateway class

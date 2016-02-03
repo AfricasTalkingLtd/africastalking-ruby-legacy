@@ -3,6 +3,8 @@ require 'net/http'
 require 'uri'
 require 'json'
 
+module AfricasTalkingGateway
+
 class AfricasTalkingGatewayException < Exception
 end
 
@@ -129,7 +131,7 @@ class AfricasTalkingGateway
 		else
   			raise AfricasTalkingGatewayAfricasTalkingGatewayException, response
 		end
-	 end
+	end
 
 	def fetchMessages(last_received_id_)
 		url = "#{SMS_URL}?username=#{@user_name}&lastReceivedId=#{last_received_id_}"
@@ -307,10 +309,7 @@ class AfricasTalkingGateway
 		uri		 	     = URI.parse(url_)
 		http		     = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl     = true
-		headers = {
-		   "apikey" => @api_key,
-		   "Accept" => "application/json"
-		}
+
 		if(data_ != nil)
 		    request = Net::HTTP::Post.new(uri.request_uri)
 			request.set_form_data(data_)
@@ -329,4 +328,5 @@ class AfricasTalkingGateway
 		@response_code = response.code.to_i
 		return response.body
 	end
+end
 end

@@ -24,7 +24,7 @@ Or install it yourself as: (might need to be super-user)
 
 ```ruby
 # Include the helper gateway class
-require './AfricasTalkingGateway'
+require 'AfricasTalkingGateway'
 
 username = "MyAfricasTalkingUsername";
 apikey   = "MyAfricasTalkingAPIKey";
@@ -56,7 +56,7 @@ end
 
 ```ruby
 # Be sure to import the helper gateway class
-require './AfricasTalkingGateway'
+require 'AfricasTalkingGateway'
 
 # Specify your login credentials
 username = 'MyUsername'
@@ -93,7 +93,7 @@ end
 
 ```ruby
 # Include the helper gateway class
-require './AfricasTalkingGateway'
+require 'AfricasTalkingGateway'
 
 # Specify your login credentials
 username = "MyAfricasTalkingUsername";
@@ -127,7 +127,7 @@ end
 
 ```ruby
 # Include the helper gateway class
-require './AfricasTalkingGateway'
+require 'AfricasTalkingGateway'
 
 # Specify your login credentials
 username = "MyAfricasTalkingUsername";

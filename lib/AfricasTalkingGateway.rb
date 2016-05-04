@@ -1,5 +1,3 @@
-module AfricasTalkingGateway
-
 require 'rubygems'
 require 'net/http'
 require 'uri'
@@ -124,21 +122,29 @@ class AfricasTalkingGateway
 
 		response = executePost(SMS_URL, post_body)
 		if @response_code == HTTP_CREATED
-  			reports = JSON.parse(response,:quirks_mode=>true)["SMSMessageData"]["Recipients"].collect { |entry|
-    			StatusReport.new entry["number"], entry["status"], entry["cost"], entry["messageId"]
-  			}
-  		return reports
+			messageData = JSON.parse(response,:quirks_mode=>true)["SMSMessageData"]
+			recipients = messageData["Recipients"]
+			
+			if recipients.length > 0
+				reports = recipients.collect { |entry|
+					StatusReport.new entry["number"], entry["status"], entry["cost"], entry["messageId"]
+				}
+				return reports
+			end
+			
+			raise AfricasTalkingGatewayException, messageData["Message"]
+			
 		else
-  			raise AfricasTalkingGatewayAfricasTalkingGatewayException, response
+  			raise AfricasTalkingGatewayException, response
 		end
-	end
+	 end
 
 	def fetchMessages(last_received_id_)
 		url = "#{SMS_URL}?username=#{@user_name}&lastReceivedId=#{last_received_id_}"
 		response = executePost(url)
 		if @response_code == HTTP_OK
 			messages = JSON.parse(response, :quirky_mode => true)["SMSMessageData"]["Messages"].collect { |msg|
-				SMSMessages.new msg["id"], msg["text"], msg["from"], msg["to"], msg["linkId"], msg["date"]
+				SMSMessage.new msg["id"], msg["text"], msg["from"] , msg["to"], msg["linkId"], msg["date"]
 			}
 			return messages
 		else
@@ -309,7 +315,10 @@ class AfricasTalkingGateway
 		uri		 	     = URI.parse(url_)
 		http		     = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl     = true
-
+		headers = {
+		   "apikey" => @api_key,
+		   "Accept" => "application/json"
+		}
 		if(data_ != nil)
 		    request = Net::HTTP::Post.new(uri.request_uri)
 			request.set_form_data(data_)
@@ -328,5 +337,4 @@ class AfricasTalkingGateway
 		@response_code = response.code.to_i
 		return response.body
 	end
-end
 end
